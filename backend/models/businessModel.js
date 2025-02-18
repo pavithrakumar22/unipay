@@ -1,10 +1,19 @@
-// backend/models/userModel.js
+// backend/models/businessModel.js
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-const userSchema = mongoose.Schema(
+const businessSchema = mongoose.Schema(
   {
-    rollNumber: {
+    businessName: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    businessType: {
+      type: String,
+      required: true,
+    },
+    phoneNumber: {
       type: String,
       required: true,
       unique: true,
@@ -13,10 +22,6 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    balance: {
-        type: Number,
-        default: 0, // Default balance is 0
-      },
   },
   {
     timestamps: true,
@@ -24,7 +29,7 @@ const userSchema = mongoose.Schema(
 );
 
 // Hash password before saving
-userSchema.pre('save', async function (next) {
+businessSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     next();
   }
@@ -34,10 +39,10 @@ userSchema.pre('save', async function (next) {
 });
 
 // Method to compare entered password with hashed password
-userSchema.methods.matchPassword = async function (enteredPassword) {
+businessSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-const User = mongoose.model('User', userSchema);
+const Business = mongoose.model('Business', businessSchema);
 
-export default User;
+export default Business;

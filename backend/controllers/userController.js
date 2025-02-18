@@ -19,12 +19,14 @@ const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create({
     rollNumber,
     password,
+    balance: 0,
   });
 
   if (user) {
     res.status(201).json({
       _id: user._id,
       rollNumber: user.rollNumber,
+      balance: user.balance,
       token: generateToken(user._id),
     });
   } else {
