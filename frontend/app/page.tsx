@@ -78,7 +78,7 @@ export default function Home() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Link href="/auth">
+              <Link href="/auth/UserSignup">
                 <Button className="px-8 py-6 rounded-xl bg-black hover:bg-gray-800 text-white text-lg group">
                   Get Started
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -239,9 +239,9 @@ export default function Home() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Link href="/auth">
+              <Link href="/auth/BusinessSignup">
                 <Button size="lg" className="px-8 py-6 text-lg bg-black hover:bg-gray-800 text-white group">
-                  Get Started Now
+                  Start Selling
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>

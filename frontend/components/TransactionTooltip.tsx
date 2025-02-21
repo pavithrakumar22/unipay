@@ -20,7 +20,7 @@ export default function TransactionTooltip({ transaction }: TransactionTooltipPr
       <p><strong>Order ID:</strong> {transaction.id}</p>
       <p><strong>Amount:</strong> {transaction.amount} {transaction.currency}</p>
       <p><strong>Date:</strong> {formatDate(transaction.created_at)}</p>
-      <p><strong>Status:</strong> {transaction.status}</p>
+      <p><strong>Status:</strong> Success</p>
     </div>
   )
 }
