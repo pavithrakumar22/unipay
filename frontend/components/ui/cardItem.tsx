@@ -28,9 +28,9 @@ const ImageCard: React.FC<ImageCardProps> = ({ title, imageSrc, linkTo }) => {
           priority
         />
         <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between bg-gradient-to-t from-black/60 to-transparent p-4 rounded-b-2xl">
-          <h3 className="text-3xl font-medium text-white flex items-center">
+          <h3 className="text-4xl font-medium text-black flex items-center">
             {title}
-            <ArrowRight className="ml-2 h-7 w-7 text-white transform transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
+            <ArrowRight className="ml-2 h-7 w-7 text-black transform transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
           </h3>
         </div>
       </div>
