@@ -17,7 +17,7 @@ const menuItems = [
     { name: "Convert", path: "/ConversionPage" },
     { name: "Stats", path: "/StatsPage" },
     { name: "Wallet", path: "/WalletPage" },
-    { name: "Transfer", path: "/contact" }
+    { name: "Transfer", path: "/TransferPage" }
   ]
 
 interface NavbarProps {

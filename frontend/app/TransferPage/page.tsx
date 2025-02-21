@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from 'next/image'
+import Navbar from '@/components/Navbar';
 
 // Types
 type Merchant = {
@@ -114,6 +115,8 @@ const x = hoverPosition;
 console.log(x);
 
   return (
+    <>
+    <Navbar selectedMenuItem="Transfer" />
     <div className="min-h-screen bg-white p-8">
       <h1 className="text-4xl font-bold text-black mb-8">UniCoin Transfer</h1>
       
@@ -159,7 +162,7 @@ console.log(x);
                   className="absolute z-50 bg-white shadow-lg rounded-lg p-4 w-100"
                   style={{
                     top: '100%',
-                    left: '100%',
+                    left: '180%',
                     transform: 'translateX(-50%)',
                     marginTop: '0.5rem'
                   }}
@@ -219,7 +222,7 @@ console.log(x);
               onChange={(e) => setPaymentAmount(e.target.value)}
             />
             <p className="text-sm text-gray-600">
-              1 UniCoin = 100 INR
+              1 UniCoin = 10 INR
             </p>
             <Button 
               className="w-full bg-black text-white hover:bg-gray-800"
@@ -285,6 +288,7 @@ console.log(x);
         </div>
       </section>
     </div>
+    </>
   );
 };
 

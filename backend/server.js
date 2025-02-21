@@ -5,80 +5,115 @@ import dotenv from "dotenv";
 import Razorpay from "razorpay";
 import crypto from "crypto";
 import userRoutes from "./routes/userRoutes.js";
-import connectDB from "./config/db.js";
 import businessRoutes from "./routes/businessRoutes.js";
+import connectDB from "./config/db.js";
+import Order from "./models/Order.js";
+import Transaction from "./models/Transaction.js";
+import Coins from "./models/Coins.js";
 
 dotenv.config();
-
 const app = express();
 
-// Connect to MongoDB
-// connectDB();
+// ✅ Connect to MongoDB
+connectDB();
 
-// Middleware to parse JSON
+// ✅ Middleware
 app.use(express.json());
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 
-// mongoose
-//   .connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-//   .then(() => console.log("MongoDB connected"))
-//   .catch((err) => console.log("MongoDB Error:", err));
+// ✅ Check MongoDB Connection Status
+mongoose.connection.on("connected", () => console.log("✅ MongoDB Connected"));
+mongoose.connection.on("error", (err) => console.log("❌ MongoDB Error:", err));
 
 app.get("/", (req, res) => {
   res.send("Unipay API is running...");
 });
 
 app.use('/api/users', userRoutes);
-app.use('/api/business',businessRoutes);
+app.use('/api/business', businessRoutes);
 
-app.post('/order', async (request, response) => {
-  try {
-    const razorpay = new Razorpay({
-      key_id: process.env.RAZORPAY_KEY_ID,
-      key_secret: process.env.RAZORPAY_SECRET
-    });
+// ✅ Debug MongoDB Connection
+console.log("🔍 MongoDB Ready State:", mongoose.connection.readyState);  // 0: Disconnected, 1: Connected, 2: Connecting, 3: Disconnecting
 
-    const { amount, currency } = request.body;
-    const options = {
-      amount: amount, // Amount in paise
-      currency: currency,
-      receipt: `receipt#${new Date().getTime()}`
-    };
-    
-    const order = await razorpay.orders.create(options);
+// ✅ Create an Order
 
-    if (!order) {
-      return response.status(500).send("Error");
+app.post('/order', async (req, res) => {
+    try {
+        const razorpay = new Razorpay({
+            key_id: process.env.RAZORPAY_KEY_ID,
+            key_secret: process.env.RAZORPAY_SECRET
+        });
+
+        const { username, amount, currency } = req.body;
+        const options = {
+            amount,
+            currency,
+            receipt: `receipt#${new Date().getTime()}`
+        };
+
+        const order = await razorpay.orders.create(options);
+        if (!order) {
+            return res.status(500).send("Error creating order");
+        }
+
+        // ✅ Save Order in Transactions Collection
+        let transaction = await Transaction.findOne({ username });
+
+        if (!transaction) {
+            transaction = new Transaction({
+                username,
+                orders: []
+            });
+        }
+
+        transaction.orders.push(order);
+        await transaction.save();
+
+        // ✅ Update Coins Collection
+        const coinValue = amount / 10;
+        let userCoins = await Coins.findOne({ username });
+
+        if (!userCoins) {
+            userCoins = new Coins({
+                username,
+                coins: 0
+            });
+        }
+
+        userCoins.coins += coinValue;
+        await userCoins.save();
+
+        res.json({ order, coins: userCoins.coins });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error");
     }
-
-    response.json(order);
-  } catch (err) {
-    console.log(err);
-    response.status(500).send("Error");
-  }
 });
 
-app.post('/order/validate', async (request, response) => {
-  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = request.body;
-  const sha = crypto.createHmac("sha256", process.env.RAZORPAY_SECRET);
-  sha.update(`${razorpay_order_id}|${razorpay_payment_id}`);
-  const digest = sha.digest("hex");
+// ✅ Fetch User Transactions
+app.get('/transactions/:username', async (req, res) => {
+    try {
+        const { username } = req.params;
+        const transaction = await Transaction.findOne({ username });
 
-  if (digest !== razorpay_signature) {
-    return response.status(400).json({ msg: "Transaction is not legit!" });
-  }
+        if (!transaction) {
+            return res.status(404).json({ message: "No transactions found" });
+        }
 
-  response.json({
-    msg: "Success!",
-    orderId: razorpay_order_id,
-    paymentId: razorpay_payment_id
-  });
+        res.json(transaction);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Error fetching transactions" });
+    }
 });
 
+
+
+
+// ✅ Start Server
 app.listen(PORT, () => {
-  console.log("Listening on Port", PORT)
-})
-
+    console.log(`🚀 Server Running on Port ${PORT}`);
+});

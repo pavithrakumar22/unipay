@@ -11,7 +11,7 @@ export default function WalletOverview() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
             <Coins className="mr-2 h-4 w-4 text-muted-foreground" />
-            <span className="text-2xl font-bold">1,234</span>
+            <span className="text-2xl font-bold">12,340</span>
           </div>
           <span className="text-sm text-muted-foreground">UniCoins</span>
         </div>
@@ -20,14 +20,14 @@ export default function WalletOverview() {
             <span className="text-sm">This Month</span>
             <div className="flex items-center text-green-600">
               <ArrowUpRight className="mr-1 h-4 w-4" />
-              <span>+250 UniCoins</span>
+              <span>+2500 UniCoins</span>
             </div>
           </div>
           <div className="flex items-center justify-between">
             <span className="text-sm">This Week</span>
             <div className="flex items-center text-red-600">
               <ArrowDownRight className="mr-1 h-4 w-4" />
-              <span>-50 UniCoins</span>
+              <span>-500 UniCoins</span>
             </div>
           </div>
         </div>

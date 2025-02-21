@@ -9,7 +9,7 @@ export default function TermsAndConditions() {
       <CardContent>
         <ul className="list-disc pl-5 space-y-2 text-sm">
           <li>UniCoins are a virtual currency and have no cash value.</li>
-          <li>The conversion rate of 100 INR to 1 UniCoin is subject to change without notice.</li>
+          <li>The conversion rate of 10 INR to 1 UniCoin is subject to change without notice.</li>
           <li>UniCoins cannot be transferred between users or redeemed for cash.</li>
           <li>We reserve the right to modify or terminate the UniCoin program at any time.</li>
           <li>Fraudulent activities will result in the forfeiture of all UniCoins and possible account suspension.</li>

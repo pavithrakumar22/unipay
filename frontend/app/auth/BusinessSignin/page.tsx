@@ -14,10 +14,10 @@ export default function SignInPage() {
   const router = useRouter();
 
 
-  const validatePasscode = (passcode) => {
-    const regex = /^\d{6}$/;
-    return regex.test(passcode);
-  };
+  // const validatePasscode = (passcode) => {
+  //   const regex = /^\d{6}$/;
+  //   return regex.test(passcode);
+  // };
 
   const handleSignIn = async () => {
     // if (!validatePasscode(passcode)) {

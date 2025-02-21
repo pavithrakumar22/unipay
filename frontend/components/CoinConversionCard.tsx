@@ -10,7 +10,7 @@ export default function CoinConversionCard() {
   const [unicoins, setUnicoins] = useState("")
 
   const handleConvert = () => {
-    const coins = Number.parseFloat(inr) / 100
+    const coins = Number.parseFloat(inr) / 10
     setUnicoins(coins.toFixed(2))
   }
 
@@ -37,7 +37,7 @@ export default function CoinConversionCard() {
           {unicoins && (
             <div className="mt-4">
               <p className="text-lg font-semibold">{unicoins} UniCoins</p>
-              <p className="text-sm text-muted-foreground">Conversion rate: 100 INR = 1 UniCoin</p>
+              <p className="text-sm text-muted-foreground">Conversion rate: 10 INR = 1 UniCoin</p>
             </div>
           )}
         </div>
