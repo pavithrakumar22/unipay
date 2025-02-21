@@ -9,11 +9,10 @@ const purchaseSchema = new Schema(
       ref: 'Event',
       required: true,
     },
-    userId: {  // Identifier for the user who purchased the pass
+    userId: {  
       type: String,
       required: true,
     },
-    // Additional transaction details can be added here
   },
   { timestamps: true }
 );

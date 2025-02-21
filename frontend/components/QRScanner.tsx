@@ -1,4 +1,3 @@
-// components/QRCodeScanner.tsx
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -24,7 +23,7 @@ export default function QRCodeScanner() {
       (decodedText) => {
         console.log("Scanned QR Code:", decodedText);
         alert(`Scanned QR Code: ${decodedText}`);
-        scanner.clear(); // Stop scanning after successful scan
+        scanner.clear(); 
       },
       (error) => {
         console.error("QR Code scan error:", error);
@@ -33,7 +32,6 @@ export default function QRCodeScanner() {
 
     scannerRef.current = scanner;
 
-    // Cleanup on unmount
     return () => {
       if (scannerRef.current) {
         scannerRef.current.clear();

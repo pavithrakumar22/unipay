@@ -15,27 +15,6 @@ export default function SignUpPage() {
   const [isLoading, setIsLoading] = useState(false); // Loading state
   const router = useRouter();
 
-  // const handleSignUp = async () => {
-  //   setIsLoading(true); // Set loading state to true
-  //   try {
-  //     // Simulate an API call for signup (replace with your actual API call)
-  //     await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate 1-second delay
-
-  //     // Check if passwords match
-  //     if (password !== confirmPassword) {
-  //       alert("Passwords do not match!");
-  //       return;
-  //     }
-
-  //     console.log("Signing up with:", username, phone, password);
-  //     router.push("/Dashboard/UserDashboard"); // Redirect to the dashboard
-  //   } catch (error) {
-  //     console.error("Sign up failed:", error);
-  //     alert("Sign up failed. Please try again.");
-  //   } finally {
-  //     setIsLoading(false); // Reset loading state
-  //   }
-  // };
 
 
   const handleSignUp = async () => {
@@ -63,7 +42,7 @@ export default function SignUpPage() {
       }
   
       console.log("User signed up:", data);
-      router.push("/LandingPage"); // Redirect on success
+      router.push("/LandingPage");
     } catch (error: any) {
       console.error("Sign up failed:", error);
       alert(error.message);

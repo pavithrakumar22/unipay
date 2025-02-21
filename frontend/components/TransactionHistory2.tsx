@@ -36,7 +36,7 @@ export default function TransactionHistory2({ title, username }: TransactionHist
           setTransactions(response.data.transactions);
         } else {
           console.error("Invalid API response format:", response.data);
-          setTransactions([]); // Prevent errors
+          setTransactions([]); 
         }
       } catch (error) {
         console.error("Error fetching transactions:", error);

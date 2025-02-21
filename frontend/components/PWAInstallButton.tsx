@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-// Define the type for the beforeinstallprompt event
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
@@ -17,10 +16,8 @@ export default function PWAInstallButton() {
       setDeferredPrompt(event as BeforeInstallPromptEvent);
     };
 
-    // Add event listener for beforeinstallprompt
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
 
-    // Cleanup the event listener on component unmount
     return () => {
       window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
     };
@@ -40,7 +37,6 @@ export default function PWAInstallButton() {
     }
   };
 
-  // Only render the button if the beforeinstallprompt event is supported and deferredPrompt is set
   return (
     deferredPrompt && (
       <button

@@ -13,27 +13,6 @@ export default function SignInPage() {
   const [isLoading, setIsLoading] = useState(false); // Loading state
   const router = useRouter();
 
-  // const handleSignIn = async () => {
-  //   setIsLoading(true); // Set loading state to true
-  //   try {
-  //     // Simulate an API call for authentication (replace with your actual API call)
-  //     await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate 1-second delay
-
-  //     // Check if username and passcode are valid (replace with your actual validation logic)
-  //     if (username === "user123" && passcode === "password123") {
-  //       console.log("Sign in successful!");
-  //       router.push("/Dashboard/UserDashboard"); // Redirect to the user dashboard
-  //     } else {
-  //       alert("Invalid username or passcode. Please try again.");
-  //     }
-  //   } catch (error) {
-  //     console.error("Sign in failed:", error);
-  //     alert("Sign in failed. Please try again.");
-  //   } finally {
-  //     setIsLoading(false); // Reset loading state
-  //   }
-  // };
-
 
   const handleSignIn = async () => {
     setIsLoading(true);
@@ -43,7 +22,6 @@ export default function SignInPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        // Adjust the payload below to match what your backend expects
         body: JSON.stringify({ username: username, password: passcode }),
       });
 
@@ -57,7 +35,6 @@ export default function SignInPage() {
       }
 
       console.log("Sign in successful!", data);
-      // Optionally, you might want to store a JWT token in local storage or cookie here:
      
       router.push("/LandingPage");
     } catch (error: any) {
