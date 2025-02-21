@@ -136,11 +136,11 @@ export default function SignupPage() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="food">Food</SelectItem>
-                      <SelectItem value="health">Health</SelectItem>
-                      <SelectItem value="entertainment">Entertainment</SelectItem>
-                      <SelectItem value="retail">Retail</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="Food">Food</SelectItem>
+                      <SelectItem value="Health">Health</SelectItem>
+                      <SelectItem value="Entertainment">Entertainment</SelectItem>
+                      <SelectItem value="Retail">Retail</SelectItem>
+                      <SelectItem value="Other">Other</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
