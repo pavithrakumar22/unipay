@@ -6,6 +6,7 @@ import Transaction from "../models/Transaction.js";
 import Razorpay from "razorpay";
 
 
+import Business from "../models/businessModel.js";
 
 export const signup = asyncHandler(async (req, res) => {
   const { username, phone, password } = req.body;
@@ -29,57 +30,6 @@ export const signin = asyncHandler(async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-
-// export const convertCoins = async (req, res) => {
-//   try {
-//     const razorpay = new Razorpay({
-//         key_id: process.env.RAZORPAY_KEY_ID,
-//         key_secret: process.env.RAZORPAY_SECRET
-//     });
-
-//     const { username, amount, currency } = req.body;
-//     const options = {
-//         amount,
-//         currency,
-//         receipt: `receipt#${new Date().getTime()}`
-//     };
-
-//     const order = await razorpay.orders.create(options);
-//     if (!order) {
-//         return res.status(500).send("Error creating order");
-//     }
-
-//     let transaction = await Transaction.findOne({ username });
-
-//     if (!transaction) {
-//         transaction = new Transaction({
-//             username,
-//             orders: []
-//         });
-//     }
-
-//     transaction.orders.push(order);
-//     await transaction.save();
-
-//     const coinValue = amount / 10;
-//     let userCoins = await Coins.findOne({ username });
-
-//     if (!userCoins) {
-//         userCoins = new Coins({
-//             username,
-//             coins: 0
-//         });
-//     }
-
-//     userCoins.coins += coinValue;
-//     await userCoins.save();
-
-//     res.json({ order, coins: userCoins.coins });
-// } catch (err) {
-//     console.error(err);
-//     res.status(500).send("Error");
-// }
-// }
 
 
 import mongoose from "mongoose";
@@ -133,5 +83,38 @@ export const transferCoins = async (req, res) => {
     return res.status(500).json({ message: "Internal server error", error: error.message });
   } finally {
     session.endSession();
+  }
+};
+
+export const transferToBusiness = async (req, res) => {
+  try {
+      const { businessPhoneNumber, amount } = req.body;
+      // const username = req.session.user?.username; // Fetching username from session
+      const username="testpay";
+
+      if (!username) {
+          return res.status(401).json({ message: 'Unauthorized: No user session found' });
+      }
+
+      const sender = await User.findOne({ username });
+      const receiver = await Business.findOne({ phoneNumber: businessPhoneNumber });
+
+      if (!receiver) {
+          return res.status(404).json({ message: 'Business receiver not found' });
+      }
+
+      if (sender.coins < amount) {
+          return res.status(400).json({ message: 'Insufficient coins' });
+      }
+
+      sender.coins -= amount;
+      receiver.coins += amount;
+
+      await sender.save();
+      await receiver.save();
+
+      res.status(200).json({ message: 'Transaction successful' });
+  } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
