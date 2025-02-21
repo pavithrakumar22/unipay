@@ -14,6 +14,7 @@ export const signup = asyncHandler(async (req, res) => {
   try {
     const user = await registerUser({ username, phone, password });
     res.status(201).json(user);
+
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

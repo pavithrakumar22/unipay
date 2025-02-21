@@ -52,10 +52,13 @@ export default function SignInPage() {
       if (!response.ok) {
         throw new Error(data.message || "Sign in failed");
       }
+      else{
+        localStorage.setItem("username", username);
+      }
 
       console.log("Sign in successful!", data);
       // Optionally, you might want to store a JWT token in local storage or cookie here:
-      // localStorage.setItem("token", data.token);
+     
       router.push("/Dashboard/UserDashboard");
     } catch (error: any) {
       console.error("Sign in failed:", error);
