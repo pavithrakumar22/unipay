@@ -102,7 +102,7 @@ function ConversionPage() {
           if(jsonResponse.msg === "success") {
             try {
               const response = await axios.post("http://localhost:5001/sample-convert", {
-                username:"test",
+                username: localStorage.getItem("username"),
                 amount: parseFloat(rupees),
                 currency,
               });

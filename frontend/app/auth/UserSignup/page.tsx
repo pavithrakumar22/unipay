@@ -58,9 +58,12 @@ export default function SignUpPage() {
       if (!response.ok) {
         throw new Error(data.message || "Sign-up failed");
       }
+      else {
+        localStorage.setItem("username", username);
+      }
   
       console.log("User signed up:", data);
-      router.push("/Dashboard/UserDashboard"); // Redirect on success
+      router.push("/LandingPage"); // Redirect on success
     } catch (error: any) {
       console.error("Sign up failed:", error);
       alert(error.message);

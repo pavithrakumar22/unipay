@@ -1,7 +1,26 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowUpRight, ArrowDownRight, Coins } from "lucide-react"
+"use client";
+
+import { useEffect, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowUpRight, ArrowDownRight, Coins } from "lucide-react";
+import axios from "axios";
 
 export default function WalletOverview() {
+  const [coins, setCoins] = useState(0);
+  const username = localStorage.getItem("username");
+
+  useEffect(() => {
+    if (!username) return;
+
+    axios.get(`http://localhost:5001/coins/${username}`)
+      .then((response) => {
+        setCoins(response.data.coins); // Assuming API returns { coins: <number> }
+      })
+      .catch((error) => {
+        console.error("Error fetching coins:", error);
+      });
+  }, [username]);
+
   return (
     <Card>
       <CardHeader>
@@ -11,7 +30,7 @@ export default function WalletOverview() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
             <Coins className="mr-2 h-4 w-4 text-muted-foreground" />
-            <span className="text-2xl font-bold">12,340</span>
+            <span className="text-2xl font-bold">{coins.toLocaleString()}</span>
           </div>
           <span className="text-sm text-muted-foreground">UniCoins</span>
         </div>
@@ -33,6 +52,5 @@ export default function WalletOverview() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
-

@@ -1,35 +1,26 @@
 interface Transaction {
-    id: string
-    amount: number
-    date: string
-    merchant?: string
-    upiId?: string
+  id: string
+  amount: number
+  created_at: number
+  status: string
+  currency: string
+}
+
+interface TransactionTooltipProps {
+  transaction: Transaction
+}
+
+export default function TransactionTooltip({ transaction }: TransactionTooltipProps) {
+  const formatDate = (timestamp: number) => {
+    return new Date(timestamp * 1000).toLocaleString()
   }
-  
-  interface TransactionTooltipProps {
-    transaction: Transaction
-  }
-  
-  export default function TransactionTooltip({ transaction }: TransactionTooltipProps) {
-    return (
-      <div className="p-3 bg-white border shadow-lg rounded-lg text-sm">
-        <p>
-          <strong>Date:</strong> {transaction.date}
-        </p>
-        <p>
-          <strong>Amount:</strong> {transaction.amount}
-        </p>
-        {transaction.merchant && (
-          <p>
-            <strong>Merchant:</strong> {transaction.merchant}
-          </p>
-        )}
-        {transaction.upiId && (
-          <p>
-            <strong>UPI ID:</strong> {transaction.upiId}
-          </p>
-        )}
-      </div>
-    )
-  }
-  
+
+  return (
+    <div className="bg-white border rounded shadow-lg p-4">
+      <p><strong>Order ID:</strong> {transaction.id}</p>
+      <p><strong>Amount:</strong> {transaction.amount} {transaction.currency}</p>
+      <p><strong>Date:</strong> {formatDate(transaction.created_at)}</p>
+      <p><strong>Status:</strong> {transaction.status}</p>
+    </div>
+  )
+}
