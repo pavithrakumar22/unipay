@@ -5,9 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
 const stats = {
-  day: { converted: 50, spent: 30 },
-  week: { converted: 300, spent: 180 },
-  month: { converted: 1200, spent: 800 },
+  day: { converted: 500, spent: 300 },
+  week: { converted: 3000, spent: 1800 },
+  month: { converted: 12000, spent: 8000 },
 }
 
 export default function CoinStatsCard() {

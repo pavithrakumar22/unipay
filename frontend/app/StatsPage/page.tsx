@@ -24,7 +24,7 @@ const FinanceDashboard: React.FC = () => {
               <div>
                 <p className="text-sm text-gray-500">Total Spending</p>
                 <h3 className="text-2xl font-bold">₹26,000</h3>
-                <p className="text-sm text-gray-600">(260 coins)</p>
+                <p className="text-sm text-gray-600">(2600 coins)</p>
                 <p className="text-sm text-green-600 flex items-center">
                   <ArrowDownRight className="h-4 w-4" />
                   13% vs last month
@@ -42,7 +42,7 @@ const FinanceDashboard: React.FC = () => {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Current Balance</p>
-                <h3 className="text-2xl font-bold">260 coins</h3>
+                <h3 className="text-2xl font-bold">2600 coins</h3>
                 <p className="text-sm text-gray-600">(₹26,000)</p>
                 <p className="text-sm text-red-600 flex items-center">
                   <ArrowDownRight className="h-4 w-4" />
@@ -61,9 +61,9 @@ const FinanceDashboard: React.FC = () => {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Monthly Limit</p>
-                <h3 className="text-2xl font-bold">300 coins</h3>
+                <h3 className="text-2xl font-bold">3000 coins</h3>
                 <p className="text-sm text-gray-600">(₹30,000)</p>
-                <p className="text-sm text-yellow-600">40 coins remaining</p>
+                <p className="text-sm text-yellow-600">400 coins remaining</p>
               </div>
             </div>
           </CardContent>
@@ -77,11 +77,11 @@ const FinanceDashboard: React.FC = () => {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Savings Target</p>
-                <h3 className="text-2xl font-bold">50 coins</h3>
+                <h3 className="text-2xl font-bold">500 coins</h3>
                 <p className="text-sm text-gray-600">(₹5,000)</p>
                 <p className="text-sm text-green-600 flex items-center">
                   <ArrowUpRight className="h-4 w-4" />
-                  20 coins saved
+                  200 coins saved
                 </p>
               </div>
             </div>
@@ -217,7 +217,7 @@ const FinanceDashboard: React.FC = () => {
                   </Pie>
                   <Tooltip 
                     formatter={(value: number, name: string, props: any) => [
-                      `₹${value.toLocaleString()} (${value/100} coins)`,
+                      `₹${value.toLocaleString()} (${value/10} coins)`,
                       props.payload.name
                     ]}
                   />
@@ -229,7 +229,7 @@ const FinanceDashboard: React.FC = () => {
             <div className="space-y-4">
               <div className="bg-blue-50 p-4 rounded-lg">
                 <h4 className="font-semibold text-blue-700 mb-2">Essential Needs (50%)</h4>
-                <p className="text-sm text-gray-600 mb-2">₹15,000 (150 coins)</p>
+                <p className="text-sm text-gray-600 mb-2">₹15,000 (1500 coins)</p>
                 <ul className="list-disc pl-4 text-sm text-gray-600">
                   <li>Groceries and household items</li>
                   <li>Utilities and bills</li>
@@ -240,7 +240,7 @@ const FinanceDashboard: React.FC = () => {
               
               <div className="bg-green-50 p-4 rounded-lg">
                 <h4 className="font-semibold text-green-700 mb-2">Lifestyle (30%)</h4>
-                <p className="text-sm text-gray-600 mb-2">₹9,000 (90 coins)</p>
+                <p className="text-sm text-gray-600 mb-2">₹9,000 (900 coins)</p>
                 <ul className="list-disc pl-4 text-sm text-gray-600">
                   <li>Entertainment and dining</li>
                   <li>Shopping and personal care</li>
@@ -251,7 +251,7 @@ const FinanceDashboard: React.FC = () => {
               
               <div className="bg-yellow-50 p-4 rounded-lg">
                 <h4 className="font-semibold text-yellow-700 mb-2">Savings (20%)</h4>
-                <p className="text-sm text-gray-600 mb-2">₹6,000 (60 coins)</p>
+                <p className="text-sm text-gray-600 mb-2">₹6,000 (600 coins)</p>
                 <ul className="list-disc pl-4 text-sm text-gray-600">
                   <li>Emergency fund</li>
                   <li>Future goals</li>

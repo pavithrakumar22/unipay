@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function SavingsDisplay() {
-  const totalSaved = 5000 // Mock data
+  const totalSaved = 50000 // Mock data
 
   return (
     <Card>
