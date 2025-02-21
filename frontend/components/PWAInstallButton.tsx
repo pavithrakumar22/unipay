@@ -1,5 +1,6 @@
 "use client";
 
+
 import { useEffect, useState } from "react";
 
 // Define the type for the beforeinstallprompt event
