@@ -10,6 +10,7 @@ import connectDB from "./config/db.js";
 import Order from "./models/Order.js";
 import Transaction from "./models/Transaction.js";
 import Coins from "./models/Coins.js";
+// import { convertCoins } from "./controllers/userController.js";
 
 dotenv.config();
 const app = express();
@@ -168,7 +169,7 @@ app.post("/order/validate", async (req, res) => {
     if (digest !== razorpay_signature) {
       return res.status(400).json({ msg: "Transaction is not legit!" });
     }
-  
+
     res.json({
       msg: "success",
       orderId: razorpay_order_id,
