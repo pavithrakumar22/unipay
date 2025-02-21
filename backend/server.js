@@ -22,10 +22,10 @@ app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 
-mongoose
-  .connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log("MongoDB Error:", err));
+// mongoose
+//   .connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+//   .then(() => console.log("MongoDB connected"))
+//   .catch((err) => console.log("MongoDB Error:", err));
 
 app.get("/", (req, res) => {
   res.send("Unipay API is running...");
