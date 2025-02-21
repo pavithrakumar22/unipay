@@ -81,53 +81,11 @@ export default function Navbar({ selectedMenuItem }: NavbarProps) {
             ))}
           </div>
 
-          {/* User Dropdown */}
-          <div className="hidden md:flex items-center relative">
-            {isLoggedIn ? (
-              <div className="flex items-center space-x-4">
-                <div className="text-gray-700 font-medium">{user?.name}</div>
-                <button
-                  onClick={handleLogout}
-                  className="text-gray-700 hover:text-red-600 transition-colors"
-                >
-                  <LogOut className="h-5 w-5" />
-                </button>
-              </div>
-            ) : (
-              <div className="relative">
-                <button
-                  onClick={() => setShowLoginOptions(!showLoginOptions)}
-                  className="text-gray-700 hover:text-gray-900 flex items-center"
-                >
-                  <User className="h-5 w-5" />
-                  <ChevronDown className="h-4 w-4 ml-1" />
-                </button>
-                <AnimatePresence>
-                  {showLoginOptions && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="absolute right-0 mt-2 w-45 bg-white shadow-lg rounded-md z-50"
-                    >
-                      <button
-                        onClick={() => handleLogin("student")}
-                        className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200"
-                      >
-                        Login as Student
-                      </button>
-                      <button
-                        onClick={() => handleLogin("merchant")}
-                        className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200"
-                      >
-                        Login as Merchant
-                      </button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            )}
-          </div>
+          <div className="hidden md:flex items-center space-x-2">
+          <User className="h-5 w-5 text-gray-700" />
+          <span className="text-gray-700 font-medium">{localStorage.getItem("username") || "Guest"}</span>
+        </div>
+
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
