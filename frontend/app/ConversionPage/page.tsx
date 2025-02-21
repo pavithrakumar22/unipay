@@ -62,12 +62,13 @@ function ConversionPage() {
 
   const handleProcced = async () => {
     try {
-      const response = await axios.post("http://localhost:5001/order", {
-        username:"default",
+      const response = await axios.post("http://localhost:5001/sample-convert", {
+        username:"test",
         amount: parseFloat(rupees), // Convert to smallest unit (paise)
         currency,
       });
       console.log(response);
+      alert(JSON.stringify(response));
       // setMessage(`Order Created: ${response.data.id}`);
     } catch (error) {
       console.error(error);
@@ -85,7 +86,7 @@ function ConversionPage() {
       const response = await fetch("http://localhost:5001/order", {
         method: "POST",
         body: JSON.stringify({
-          amount: parseFloat(rupees) * 10,
+          amount: parseFloat(rupees) * 100,
           currency: "INR"
         }),
         headers: {
@@ -224,7 +225,7 @@ function ConversionPage() {
               <Button disabled={!agreed || !razorpayLoaded} className="w-full" onClick={initiatePayment}>
                 {razorpayLoaded ? "Proceed to Convert" : "Loading Payment..."}
               </Button>
-              <Button onClick={handleProcced}>Pay</Button>
+              <Button className="cursor-pointer" onClick={handleProcced}>Convert</Button>
             </CardContent>
           </Card>
         </div>
