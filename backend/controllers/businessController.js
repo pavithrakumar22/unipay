@@ -2,13 +2,13 @@ import asyncHandler from "express-async-handler";
 import { registerBusiness,loginBusiness } from "../services/businessService.js";
 
 export const signupBusiness = asyncHandler(async (req, res) => {
-  const { businessName, category, phoneNumber, password } = req.body;
-  if (!businessName || !category || !phoneNumber || !password) {
+  const { businessName, category,description, phoneNumber, password } = req.body;
+  if (!businessName || !category || !phoneNumber || !password ||!description) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
   try {
-    const data = await registerBusiness({ businessName, category, phoneNumber, password });
+    const data = await registerBusiness({ businessName, category, phoneNumber, description,password });
     res.status(201).json(data);
   } catch (error) {
     res.status(400).json({ message: error.message });

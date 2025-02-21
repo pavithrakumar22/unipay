@@ -35,6 +35,9 @@ const formSchema = z.object({
   phoneNumber: z.string().min(10, {
     message: "Phone number must be at least 10 digits.",
   }),
+  description: z.string().min(5,{
+    message: "Description must be of min 5 letters"
+  }),
   password: z.string().min(6, {
     message: "Password must be at least 6 characters.",
   }),
@@ -57,6 +60,7 @@ export default function SignupPage() {
       businessName: "",
       category: "",
       phoneNumber: "",
+      description: "",
       password: "",
       confirmPassword: "",
     },
@@ -75,6 +79,7 @@ export default function SignupPage() {
           businessName: values.businessName,
           category: values.category,
           phoneNumber: values.phoneNumber,
+          description: values.description, // Added description to the request body
           password: values.password,
         }),
       });
@@ -152,6 +157,21 @@ export default function SignupPage() {
                   <FormLabel>Phone Number</FormLabel>
                   <FormControl>
                     <Input placeholder="Enter your phone number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Description Field */}
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Description" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
