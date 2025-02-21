@@ -75,7 +75,8 @@ export default function CoinTransferPage() {
       }
 
     } catch (error: any) {
-      console.error(error);
+
+      alert(error);
     } finally {
       setShowConfirmation(false);
       setSelectedBusiness(null);

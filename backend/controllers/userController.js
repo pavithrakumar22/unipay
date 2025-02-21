@@ -52,9 +52,11 @@ export const transferCoins = async (req, res) => {
       sender = await Coins.create([{ username: senderUsername, coins: 0 }], { session });
     }
 
-    let receiver = await Coins.findOne({ username: receiverUsername });
+    const receiver = await Coins.findOne({ username: receiverUsername });
+
     if (!receiver) {
-      receiver = await Coins.create([{ username: receiverUsername, coins: 0 }], { session });
+      await session.abortTransaction();
+      return res.status(400).json({ message: "Receiver not found" });
     }
 
     sender = await Coins.findOneAndUpdate(
@@ -68,7 +70,7 @@ export const transferCoins = async (req, res) => {
       return res.status(400).json({ message: "Insufficient balance" });
     }
 
-    receiver = await Coins.findOneAndUpdate(
+    await Coins.findOneAndUpdate(
       { username: receiverUsername },
       { $inc: { coins: parsedAmount } },
       { new: true, session }
@@ -97,6 +99,7 @@ export const transferCoins = async (req, res) => {
     session.endSession();
   }
 };
+
 
 
 
