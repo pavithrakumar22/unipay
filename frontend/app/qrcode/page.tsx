@@ -1,4 +1,3 @@
-// app/qr-code/page.tsx
 import QRCodeGenerator from "@/components/QRGenerator";
 import QRCodeScanner from "@/components/QRScanner";
 

@@ -14,7 +14,7 @@ export default function WalletOverview() {
 
     axios.get(`http://localhost:5001/coins/${username}`)
       .then((response) => {
-        setCoins(response.data.coins); // Assuming API returns { coins: <number> }
+        setCoins(response.data.coins);
       })
       .catch((error) => {
         console.error("Error fetching coins:", error);

@@ -9,11 +9,9 @@ import { UserIcon, BriefcaseIcon } from "lucide-react";
 export default function AuthLayout({ children }) {
   const pathname = usePathname();
   
-  // Determine if we're on a signup or signin page
   const isSignUp = pathname.includes("SignUp");
   const actionText = isSignUp ? "Sign Up" : "Sign In";
   
-  // Determine which user type is active (if any)
   const isStudent = pathname.includes("User");
   const isBusiness = pathname.includes("Business");
   

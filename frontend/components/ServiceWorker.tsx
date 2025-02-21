@@ -1,4 +1,4 @@
-"use client"; // Mark as client component
+"use client";
 
 import { useEffect } from "react";
 
@@ -16,5 +16,5 @@ export default function ServiceWorker() {
     }
   }, []);
 
-  return null; // This component doesn't render anything
+  return null; 
 }

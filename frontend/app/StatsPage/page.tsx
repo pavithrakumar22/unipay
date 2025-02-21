@@ -69,24 +69,7 @@ const FinanceDashboard: React.FC = () => {
           </CardContent>
         </Card>
 
-        {/* <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center space-x-4">
-              <div className="bg-purple-100 p-3 rounded-full">
-                <Wallet className="h-6 w-6 text-purple-600" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Savings Target</p>
-                <h3 className="text-2xl font-bold">500 coins</h3>
-                <p className="text-sm text-gray-600">(₹5,000)</p>
-                <p className="text-sm text-green-600 flex items-center">
-                  <ArrowUpRight className="h-4 w-4" />
-                  200 coins saved
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card> */}
+        
       </div>
 
       {/* Monthly Spending Line Graph */}

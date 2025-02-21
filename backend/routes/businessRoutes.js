@@ -3,7 +3,6 @@ import { signupBusiness,signinBusiness } from "../controllers/businessController
 
 const router = express.Router();
 
-// POST /api/business/signup
 router.post("/signup", signupBusiness);
 
 router.post("/signin", signinBusiness);

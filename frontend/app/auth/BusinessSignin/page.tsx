@@ -14,16 +14,9 @@ export default function SignInPage() {
   const router = useRouter();
 
 
-  // const validatePasscode = (passcode) => {
-  //   const regex = /^\d{6}$/;
-  //   return regex.test(passcode);
-  // };
+
 
   const handleSignIn = async () => {
-    // if (!validatePasscode(passcode)) {
-    //   alert("Invalid passcode format. Password must be exactly 6 digits.");
-    //   return;
-    // }
   
     setIsLoading(true);
     try {

@@ -53,10 +53,7 @@ function ConversionPage() {
     setRupees((Number.parseFloat(e.target.value) * 10).toFixed(2));
   };
 
-    // const [username, setUsername] = useState("");
-    // const [amount, setAmount] = useState("");
     const currency = "INR";
-    // const [message, setMessage] = useState("");
 
 
   const initiatePayment = async () => {

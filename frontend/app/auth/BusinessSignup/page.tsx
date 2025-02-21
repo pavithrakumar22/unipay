@@ -20,11 +20,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useRouter } from "next/navigation"; // Import useRouter
-import Link from "next/link"; // Import Link for navigation
-import { useState } from "react"; // Import useState for loading state
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useState } from "react"; 
 
-// Define the form schema using Zod
 const formSchema = z.object({
   businessName: z.string().min(2, {
     message: "Business name must be at least 2 characters.",
@@ -47,10 +46,9 @@ const formSchema = z.object({
 });
 
 export default function SignupPage() {
-  const router = useRouter(); // Initialize the router
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false); 
 
-  // Initialize the form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -62,9 +60,8 @@ export default function SignupPage() {
     },
   });
 
-  // Handle form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsLoading(true); // Set loading state to true
+    setIsLoading(true); 
     try {
       const response = await fetch("http://localhost:5001/api/business/signup", {
         method: "POST",
@@ -86,7 +83,6 @@ export default function SignupPage() {
       }
 
       console.log("Form submitted:", data);
-      // Redirect to the business dashboard after successful signup
       router.push("/Dashboard/BusinessDashboard");
     } catch (error: any) {
       console.error("Signup failed:", error);

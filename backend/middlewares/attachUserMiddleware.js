@@ -2,7 +2,7 @@ import User from "../models/userModel.js";
 
 const attachUser = async (req, res, next) => {
   try {
-    const { username } = req.session || {}; // Assuming session stores username
+    const { username } = req.session || {}; 
 
     if (!username) {
       return res.status(401).json({ message: "Unauthorized" });
@@ -13,7 +13,7 @@ const attachUser = async (req, res, next) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    req.username = user.username; // Attach username
+    req.username = user.username; 
     next();
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });

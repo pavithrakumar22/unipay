@@ -8,11 +8,10 @@ import userRoutes from "./routes/userRoutes.js";
 import businessRoutes from "./routes/businessRoutes.js";
 import eventRoutes from "./routes/eventRoutes.js";
 import connectDB from "./config/db.js";
-import Order from "./models/Order.js";
 import Transaction from "./models/Transaction.js";
 import Coins from "./models/Coins.js";
 import TransferCoins from "./models/TransferCoins.js";
-
+import Business from "./models/businessModel.js";
 
 dotenv.config();
 const app = express();
@@ -174,12 +173,10 @@ app.post("/order/validate", async (req, res) => {
     try {
       const { username } = req.params;
   
-      // Fetch transactions where the user is either sender or receiver
       const transactions = await TransferCoins.find({
         $or: [{ sender: username }, { receiver: username }],
-      }).sort({ timestamp: -1 }); // Sort by latest transactions
+      }).sort({ timestamp: -1 }); 
   
-      // Transform transactions into the required format
       const formattedTransactions = transactions.map((txn) => {
         const isSender = txn.sender === username;
         return {
@@ -198,7 +195,15 @@ app.post("/order/validate", async (req, res) => {
     }
   });
   
-  
+  app.get("/businesses", async (req, res) => {
+    try {
+      const businesses = await Business.find({});
+      res.json(businesses);
+    } catch (error) {
+      console.error("Error fetching businesses:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
 
 app.listen(PORT, () => {
     console.log(`🚀 Server Running on Port ${PORT}`);
