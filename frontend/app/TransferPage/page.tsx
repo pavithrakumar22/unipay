@@ -7,14 +7,14 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+//   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+//   CardDescription,
+//   CardHeader,
+//   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -109,6 +109,9 @@ const CoinTransferPage = () => {
     setStudentId('');
     setPaymentType(null);
   };
+
+const x = hoverPosition;
+console.log(x);
 
   return (
     <div className="min-h-screen bg-white p-8">
