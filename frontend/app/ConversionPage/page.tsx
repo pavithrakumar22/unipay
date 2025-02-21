@@ -17,8 +17,6 @@ declare global {
     Razorpay: any;
   }
 }
- 
-
 
 
 function ConversionPage() {
@@ -68,7 +66,7 @@ function ConversionPage() {
         currency,
       });
       console.log(response);
-      alert(JSON.stringify(response));
+      alert(JSON.stringify({"Wallet": response.data.coins}));
       // setMessage(`Order Created: ${response.data.id}`);
     } catch (error) {
       console.error(error);
