@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { User, ChevronDown, LogOut, Menu } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 type UserType = {
   name: string
@@ -29,12 +30,19 @@ export default function Navbar({ selectedMenuItem }: NavbarProps) {
   const [showLoginOptions, setShowLoginOptions] = useState(false)
   const [user, setUser] = useState<UserType>(null)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const router = useRouter();
 
 
   const handleLogin = (type: "student" | "merchant") => {
-    setIsLoggedIn(true)
-    setUser({ name: `Test ${type}`, type })
-    setShowLoginOptions(false)
+    // setIsLoggedIn(true)
+    // setUser({ name: `Test ${type}`, type })
+    // setShowLoginOptions(false)
+    if(type=="student"){
+      router.push("/auth/UserSignin");
+    }
+    else{
+      router.push("/auth/BusinessSignin");
+    }
   }
 
   const handleLogout = () => {
