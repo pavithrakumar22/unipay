@@ -16,10 +16,12 @@ import {
 //   CardHeader,
 //   CardTitle,
 } from "@/components/ui/card";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from 'next/image'
 import Navbar from '@/components/Navbar';
+import axios from 'axios';
 
 // Types
 type Merchant = {
@@ -104,12 +106,37 @@ const CoinTransferPage = () => {
   };
 
   const confirmPayment = () => {
+    handleStudentPayment();
     setShowConfirmation(false);
     setSelectedMerchant(null);
     setPaymentAmount('');
     setStudentId('');
     setPaymentType(null);
   };
+
+  const handleStudentPayment = async () => {
+    try {
+      const senderUsername = "sudharshan";
+      const amount = parseInt(paymentAmount, 10); // Ensure base 10 parsing
+  
+      if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+      }
+  
+      const response = await axios.post("http://localhost:5001/api/users/transfer", {
+        senderUsername,
+        receiverUsername: studentId,
+        amount, 
+      });
+  
+      alert(JSON.stringify(response.data.message));
+    } catch (error: any) {
+      console.error(error);
+    }
+  };
+  
+  
 
 const x = hoverPosition;
 console.log(x);
@@ -197,7 +224,7 @@ console.log(x);
               />
               <Button 
                 className="w-full bg-black text-white hover:bg-gray-800"
-                onClick={() => setPaymentType('student')}
+                onClick={() =>  setPaymentType("student")}
               >
                 Proceed
               </Button>

@@ -8,5 +8,4 @@ router.post("/signup", signup);
 router.post("/signin", signin);
 
 router.post("/transfer", transferCoins);
-
 export default router;
