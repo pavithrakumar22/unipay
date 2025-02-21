@@ -16,32 +16,32 @@ export default function AuthLayout({ children }) {
   const isBusiness = pathname.includes("Business");
   
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100 p-4">
-      <div className="w-full max-w-md mb-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-center">{actionText} as</CardTitle>
+    <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4">
+      <div className="w-full max-w-md mt-8 mb-4">
+        <Card className="shadow-md">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-center text-xl">{actionText} as</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="flex gap-4">
+          <CardContent className="pt-0">
+            <div className="flex gap-3">
               <Button 
                 variant={isStudent ? "default" : "outline"}
-                className="flex-1 h-20 flex flex-col items-center justify-center gap-2"
+                className="flex-1 h-16 flex flex-col items-center justify-center gap-1"
                 asChild
               >
                 <Link href={isSignUp ? "/auth/UserSignUp" : "/auth/UserSignin"}>
-                  <UserIcon className="h-6 w-6" />
+                  <UserIcon className="h-5 w-5 mb-1" />
                   <span>Student</span>
                 </Link>
               </Button>
               
               <Button 
                 variant={isBusiness ? "default" : "outline"}
-                className="flex-1 h-20 flex flex-col items-center justify-center gap-2"
+                className="flex-1 h-16 flex flex-col items-center justify-center gap-1"
                 asChild
               >
                 <Link href={isSignUp ? "/auth/BusinessSignUp" : "/auth/BusinessSignin"}>
-                  <BriefcaseIcon className="h-6 w-6" />
+                  <BriefcaseIcon className="h-5 w-5 mb-1" />
                   <span>Business</span>
                 </Link>
               </Button>

@@ -33,17 +33,30 @@ export default function Navbar({ selectedMenuItem }: NavbarProps) {
   const router = useRouter();
 
 
+  // const handleLogin = (type: "student" | "merchant") => {
+  //   // setIsLoggedIn(true)
+  //   // setUser({ name: `Test ${type}`, type })
+  //   // setShowLoginOptions(false)
+  //   if(type=="student"){
+  //     router.push("/auth/UserSignin");
+  //   }
+  //   else{
+  //     router.push("/auth/BusinessSignin");
+  //   }
+  // }
+
   const handleLogin = (type: "student" | "merchant") => {
-    // setIsLoggedIn(true)
-    // setUser({ name: `Test ${type}`, type })
-    // setShowLoginOptions(false)
-    if(type=="student"){
-      router.push("/auth/UserSignin");
-    }
-    else{
-      router.push("/auth/BusinessSignin");
+    // If you want to redirect to a login page, clear any current login state (if applicable)
+    setIsLoggedIn(false)
+    setUser(null)
+    
+    if(type === "student"){
+      router.push("/auth/UserSignin")
+    } else {
+      router.push("/auth/BusinessSignin")
     }
   }
+  
 
   const handleLogout = () => {
     setIsLoggedIn(false)

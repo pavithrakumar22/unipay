@@ -2,7 +2,7 @@ import Business from "../models/businessModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-export const registerBusiness = async ({ businessName, category, phoneNumber, password }) => {
+export const registerBusiness = async ({ businessName, category, phoneNumber,description, password }) => {
   // Check if a business with the same phone number already exists
   const businessExists = await Business.findOne({ phoneNumber });
   if (businessExists) {
@@ -15,13 +15,14 @@ export const registerBusiness = async ({ businessName, category, phoneNumber, pa
     businessName,
     category,
     phoneNumber,
+    description,
     password: hashedPassword,
   });
 
   // Optionally, create a JWT for the new business
   const token = jwt.sign({ id: business._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 
-  return { token, business: { _id: business._id, businessName: business.businessName, category: business.category, phoneNumber: business.phoneNumber } };
+  return { token, business: { _id: business._id, businessName: business.businessName, category: business.category, phoneNumber: business.phoneNumber ,description: business.description} };
 };
 
 export const loginBusiness = async ({ businessName, password }) => {
