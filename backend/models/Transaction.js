@@ -17,6 +17,15 @@ const TransactionSchema = new mongoose.Schema({
             notes: Object,
             offer_id: String,
         }
+    ],
+    history: [
+        {
+            amount: Number,
+            date: { type: Date, default: Date.now },
+            type: { type: String, enum: ["deposit", "spend"], required: true }, // Type of transaction
+            merchant: String,  // Optional field for merchant name
+            upiId: String       // Optional UPI ID
+        }
     ]
 });
 

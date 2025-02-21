@@ -3,7 +3,6 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const registerUser = async ({ username, phone, password }) => {
-  // Check for duplicate phone or username
   const userExists = await User.findOne({
     $or: [{ phone }, { username }]
   });

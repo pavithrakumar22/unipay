@@ -4,7 +4,7 @@ import React from 'react';
 import Navbar from '@/components/Navbar';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Coins, TrendingDown, Wallet, ArrowDownRight, ArrowUpRight, IndianRupee, ExternalLink } from 'lucide-react';
+import { Coins, TrendingDown, ArrowDownRight, IndianRupee, ExternalLink } from 'lucide-react';
 import { monthlySpendingData, monthlyWalletData, categoryData, savingTips, COLORS } from '../Data/financeData';
 import type { SavingTip } from '../types/finance';
 
@@ -69,7 +69,7 @@ const FinanceDashboard: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        {/* <Card>
           <CardContent className="p-6">
             <div className="flex items-center space-x-4">
               <div className="bg-purple-100 p-3 rounded-full">
@@ -86,7 +86,7 @@ const FinanceDashboard: React.FC = () => {
               </div>
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
 
       {/* Monthly Spending Line Graph */}

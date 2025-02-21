@@ -6,19 +6,19 @@ import Razorpay from "razorpay";
 import crypto from "crypto";
 import userRoutes from "./routes/userRoutes.js";
 import businessRoutes from "./routes/businessRoutes.js";
+import eventRoutes from "./routes/eventRoutes.js";
 import connectDB from "./config/db.js";
 import Order from "./models/Order.js";
 import Transaction from "./models/Transaction.js";
 import Coins from "./models/Coins.js";
-// import { convertCoins } from "./controllers/userController.js";
+import TransferCoins from "./models/TransferCoins.js";
+
 
 dotenv.config();
 const app = express();
 
-// ✅ Connect to MongoDB
 connectDB();
 
-// ✅ Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
@@ -31,11 +31,10 @@ app.get("/", (req, res) => {
 
 app.use('/api/users', userRoutes);
 app.use('/api/business', businessRoutes);
+app.use('/api/events',eventRoutes);
 
-// ✅ Debug MongoDB Connection
-console.log("🔍 MongoDB Ready State:", mongoose.connection.readyState);  // 0: Disconnected, 1: Connected, 2: Connecting, 3: Disconnecting
+console.log("🔍 MongoDB Ready State:", mongoose.connection.readyState);
 
-// ✅ Create an Order
 
 app.post('/order', async (req, res) => {
     try {
@@ -55,33 +54,6 @@ app.post('/order', async (req, res) => {
         if (!order) {
             return res.status(500).send("Error creating order");
         }
-
-        // ✅ Save Order in Transactions Collection
-        // let transaction = await Transaction.findOne({ username });
-
-        // if (!transaction) {
-        //     transaction = new Transaction({
-        //         username,
-        //         orders: []
-        //     });
-        // }
-
-        // transaction.orders.push(order);
-        // await transaction.save();
-
-        // // ✅ Update Coins Collection
-        // const coinValue = amount / 10;
-        // let userCoins = await Coins.findOne({ username });
-
-        // if (!userCoins) {
-        //     userCoins = new Coins({
-        //         username,
-        //         coins: 0
-        //     });
-        // }
-
-        // userCoins.coins += coinValue;
-        // await userCoins.save();
 
         res.json(order);
     } catch (err) {
@@ -141,7 +113,6 @@ app.post('/sample-convert', async (req, res) => {
     }
 })
 
-// ✅ Fetch User Transactions
 app.get('/transactions/:username', async (req, res) => {
     try {
         const { username } = req.params;
@@ -157,6 +128,28 @@ app.get('/transactions/:username', async (req, res) => {
         res.status(500).json({ message: "Error fetching transactions" });
     }
 });
+
+app.get('/coins/:username', async (req, res) => {
+    try {
+        const { username } = req.params;
+    
+        if (!username) {
+          return res.status(400).json({ message: "Username is required" });
+        }
+    
+        const userCoins = await Coins.findOne({ username });
+    
+        if (!userCoins) {
+          return res.status(404).json({ message: "User not found" });
+        }
+    
+        return res.status(200).json({ username: userCoins.username, coins: userCoins.coins });
+      } catch (error) {
+        console.error("Error fetching coins:", error);
+        return res.status(500).json({ message: "Internal server error", error: error.message });
+      }
+})
+
 
 app.post("/order/validate", async (req, res) => {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
@@ -177,8 +170,36 @@ app.post("/order/validate", async (req, res) => {
     });
   });
 
+  app.get("/user-transactions/:username", async (req, res) => {
+    try {
+      const { username } = req.params;
+  
+      // Fetch transactions where the user is either sender or receiver
+      const transactions = await TransferCoins.find({
+        $or: [{ sender: username }, { receiver: username }],
+      }).sort({ timestamp: -1 }); // Sort by latest transactions
+  
+      // Transform transactions into the required format
+      const formattedTransactions = transactions.map((txn) => {
+        const isSender = txn.sender === username;
+        return {
+          id: txn._id,
+          username: username,
+          amount: isSender ? -txn.transactions.find((t) => t.username === username).amount : txn.transactions.find((t) => t.username === username).amount,
+          created_at: txn.timestamp,
+          currency: "Coins",
+        };
+      });
+  
+      return res.json({ transactions: formattedTransactions });
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  });
+  
+  
 
-// ✅ Start Server
 app.listen(PORT, () => {
     console.log(`🚀 Server Running on Port ${PORT}`);
 });

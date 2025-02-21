@@ -59,7 +59,7 @@ export default function SignInPage() {
       console.log("Sign in successful!", data);
       // Optionally, you might want to store a JWT token in local storage or cookie here:
      
-      router.push("/Dashboard/UserDashboard");
+      router.push("/LandingPage");
     } catch (error: any) {
       console.error("Sign in failed:", error);
       alert(error.message);

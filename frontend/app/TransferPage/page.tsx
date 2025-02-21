@@ -116,8 +116,8 @@ const CoinTransferPage = () => {
 
   const handleStudentPayment = async () => {
     try {
-      const senderUsername = "sudharshan";
-      const amount = parseInt(paymentAmount, 10); // Ensure base 10 parsing
+      const senderUsername = localStorage.getItem("username");
+      const amount = parseInt(paymentAmount, 10);
   
       if (isNaN(amount) || amount <= 0) {
         alert("Please enter a valid amount.");
