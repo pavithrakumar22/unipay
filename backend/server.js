@@ -6,6 +6,7 @@ import Razorpay from "razorpay";
 import crypto from "crypto";
 import userRoutes from "./routes/userRoutes.js";
 import businessRoutes from "./routes/businessRoutes.js";
+import eventRoutes from "./routes/eventRoutes.js";
 import connectDB from "./config/db.js";
 import Order from "./models/Order.js";
 import Transaction from "./models/Transaction.js";
@@ -31,6 +32,7 @@ app.get("/", (req, res) => {
 
 app.use('/api/users', userRoutes);
 app.use('/api/business', businessRoutes);
+app.use('/api/events',eventRoutes);
 
 // ✅ Debug MongoDB Connection
 console.log("🔍 MongoDB Ready State:", mongoose.connection.readyState);  // 0: Disconnected, 1: Connected, 2: Connecting, 3: Disconnecting

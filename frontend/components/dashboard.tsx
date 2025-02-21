@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
-import { ArrowDownIcon, ArrowUpIcon, DollarSign, User } from "lucide-react";
+import { DollarSign, User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -96,6 +96,16 @@ export default function DashboardPage() {
             <CardContent>
               <div className="text-2xl font-bold">218 Points</div>
               <p className="text-xs text-muted-foreground">+8% from yesterday</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-2xl font-bold">Create Event</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-sm font-medium">Edit Event</div>
+              {/* <p className="text-xs text-muted-foreground">+8% from yesterday</p> */}
             </CardContent>
           </Card>
         </div>
