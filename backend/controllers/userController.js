@@ -4,6 +4,7 @@ import User from "../models/userModel.js";
 import Coins from "../models/Coins.js";
 
 
+
 export const signup = asyncHandler(async (req, res) => {
   const { username, phone, password } = req.body;
   if (!username || !phone || !password)
@@ -29,45 +30,6 @@ export const signin = asyncHandler(async (req, res) => {
 
 
 
-// export const transferCoins = async (req, res) => {
-//   try {
-//     const { senderUsername, receiverIdentifier, amount } = req.body;
-
-//     if (!senderUsername || !receiverIdentifier || !amount) {
-//       return res.status(400).json({ message: "Sender, receiver, and amount are required" });
-//     }
-
-//     const parsedAmount = parseFloat(amount);
-//     if (isNaN(parsedAmount) || parsedAmount <= 0) {
-//       return res.status(400).json({ message: "Invalid amount" });
-//     }
-
-//     const sender = await User.findOneAndUpdate(
-//       { username: senderUsername, coins: { $gte: parsedAmount } },
-//       { $inc: { coins: -parsedAmount } },
-//       { new: true }
-//     );
-
-//     if (!sender) {
-//       return res.status(400).json({ message: "Insufficient balance or sender not found" });
-//     }
-
-//     const receiver = await User.findOneAndUpdate(
-//       { $or: [{ username: receiverIdentifier }, { phone: receiverIdentifier }] },
-//       { $inc: { coins: parsedAmount } },
-//       { new: true }
-//     );
-
-//     if (!receiver) {
-//       return res.status(404).json({ message: "Receiver not found" });
-//     }
-
-//     return res.status(200).json({ message: "Transfer successful", sender, receiver });
-//   } catch (error) {
-//     console.error("Transfer error:", error);
-//     return res.status(500).json({ message: "Internal server error", error: error.message });
-//   }
-// };
 
 import mongoose from "mongoose";
 
