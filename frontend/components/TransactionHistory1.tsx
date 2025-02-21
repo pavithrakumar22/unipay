@@ -84,7 +84,7 @@ export default function TransactionHistory1({ title, type, username }: Transacti
                 >
                   <TableCell className="py-2">{formatDate(transaction.created_at)}</TableCell>
                   <TableCell className="py-2">
-                    {transaction.amount / 100} {transaction.currency}
+                    {transaction.amount} {transaction.currency}
                   </TableCell>
                   <TableCell className="py-2">{transaction.status}</TableCell>
                 </TableRow>
