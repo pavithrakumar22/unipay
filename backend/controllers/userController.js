@@ -2,8 +2,6 @@ import asyncHandler from "express-async-handler";
 import { registerUser, loginUser } from "../services/userService.js";
 import User from "../models/userModel.js";
 import Coins from "../models/Coins.js";
-import Transaction from "../models/Transaction.js";
-import Razorpay from "razorpay";
 
 
 import Business from "../models/businessModel.js";
@@ -89,7 +87,7 @@ export const transferCoins = async (req, res) => {
 export const transferToBusiness = async (req, res) => {
   try {
       const { businessPhoneNumber, amount } = req.body;
-      // const username = req.session.user?.username; // Fetching username from session
+      // const username = req.session.user?.username;
       const username="testpay";
 
       if (!username) {
