@@ -28,4 +28,3 @@ export const loginUser = async ({ username, password }) => {
   
     return { token, user: { _id: user._id, username: user.username, phone: user.phone } };
   };
-  

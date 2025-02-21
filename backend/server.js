@@ -24,10 +24,6 @@ app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 
-// ✅ Check MongoDB Connection Status
-mongoose.connection.on("connected", () => console.log("✅ MongoDB Connected"));
-mongoose.connection.on("error", (err) => console.log("❌ MongoDB Error:", err));
-
 app.get("/", (req, res) => {
   res.send("Unipay API is running...");
 });
