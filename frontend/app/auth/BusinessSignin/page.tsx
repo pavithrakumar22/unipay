@@ -20,10 +20,6 @@ export default function SignInPage() {
   // };
 
   const handleSignIn = async () => {
-    // if (!validatePasscode(passcode)) {
-    //   alert("Invalid passcode format. Password must be exactly 6 digits.");
-    //   return;
-    // }
   
     setIsLoading(true);
     try {
