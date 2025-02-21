@@ -48,7 +48,7 @@ const CoinTransferPage = () => {
     {
       id: '1',
       name: 'Campus Cafe',
-      logo: '/api/placeholder/100/100',
+      logo: 'https://unipay7781.s3.us-east-1.amazonaws.com/biriyani.png',
       description: 'College cafeteria serving fresh meals',
       location: 'Main Building',
       category: 'Food',
@@ -56,7 +56,7 @@ const CoinTransferPage = () => {
     {
       id: '2',
       name: 'College Bookstore',
-      logo: '/api/placeholder/100/100',
+      logo: 'https://unipay7781.s3.us-east-1.amazonaws.com/stationary.png',
       description: 'Academic books and supplies',
       location: 'Library Block',
       category: 'Education',

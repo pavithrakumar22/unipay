@@ -58,21 +58,6 @@ function ConversionPage() {
     const currency = "INR";
     // const [message, setMessage] = useState("");
 
-  const handleProcced = async () => {
-    try {
-      const response = await axios.post("http://localhost:5001/sample-convert", {
-        username:"test",
-        amount: parseFloat(rupees), // Convert to smallest unit (paise)
-        currency,
-      });
-      console.log(response);
-      alert(JSON.stringify({"Wallet": response.data.coins}));
-      // setMessage(`Order Created: ${response.data.id}`);
-    } catch (error) {
-      console.error(error);
-      // setMessage("Error creating order");
-    }
-  }
 
   const initiatePayment = async () => {
     try {
@@ -114,11 +99,23 @@ function ConversionPage() {
           });
           const jsonResponse = await validateResponse.json();
           console.log(jsonResponse);
+          if(jsonResponse.msg === "success") {
+            try {
+              const response = await axios.post("http://localhost:5001/sample-convert", {
+                username:"test",
+                amount: parseFloat(rupees),
+                currency,
+              });
+              console.log(response);
+            } catch (error) {
+              console.error(error);
+            }
+          }
         },
         prefill: {
           name: "Sudharshan",
           email: "example@gmail.com",
-          contact: "9000000000"
+          contact: "9392267649"
         },
         notes: {
           address: "Razorpay Corporate Office"
@@ -136,6 +133,7 @@ function ConversionPage() {
     } catch (error) {
       console.error("Payment initiation failed", error);
     }
+
   };
 
   return (
@@ -223,7 +221,6 @@ function ConversionPage() {
               <Button disabled={!agreed || !razorpayLoaded} className="w-full" onClick={initiatePayment}>
                 {razorpayLoaded ? "Proceed to Convert" : "Loading Payment..."}
               </Button>
-              <Button className="cursor-pointer" onClick={handleProcced}>Convert</Button>
             </CardContent>
           </Card>
         </div>

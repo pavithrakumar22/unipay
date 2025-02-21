@@ -2,6 +2,10 @@ import asyncHandler from "express-async-handler";
 import { registerUser, loginUser } from "../services/userService.js";
 import User from "../models/userModel.js";
 import Coins from "../models/Coins.js";
+import Transaction from "../models/Transaction.js";
+import Razorpay from "razorpay";
+
+
 import Business from "../models/businessModel.js";
 
 export const signup = asyncHandler(async (req, res) => {
@@ -26,8 +30,6 @@ export const signin = asyncHandler(async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-
-
 
 
 import mongoose from "mongoose";
