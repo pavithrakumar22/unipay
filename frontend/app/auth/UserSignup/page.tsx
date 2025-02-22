@@ -42,7 +42,7 @@ export default function SignUpPage() {
       }
   
       console.log("User signed up:", data);
-      router.push("/LandingPage");
+      router.push("/Dashboard/UserDashboard");
     } catch (error: any) {
       console.error("Sign up failed:", error);
       alert(error.message);

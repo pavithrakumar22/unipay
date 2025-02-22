@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import Router from "next/router";
+import { useRouter } from "next/navigation";
 
 // Mock data for the chart
 const data = [
@@ -32,6 +34,12 @@ export default function DashboardPage() {
   const [isClient, setIsClient] = useState(false); // Ensure client-only rendering
   const [points, setPoints] = useState(1000);
   const [convertAmount, setConvertAmount] = useState<string | number>("");
+
+  const router = useRouter();
+
+  const createEvent = () => {
+    router.push('/eventdetails');
+  }
 
   useEffect(() => {
     setIsClient(true);
@@ -100,8 +108,8 @@ export default function DashboardPage() {
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-2xl font-bold">Create Event</CardTitle>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 cursor-pointer">
+              <CardTitle onClick={createEvent} className="text-2xl font-bold">Create Event</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-sm font-medium">Edit Event</div>

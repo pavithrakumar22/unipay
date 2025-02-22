@@ -1,166 +1,163 @@
-"use client"; // Required for Next.js App Router
+"use client"
 
-import { useState } from "react";
+import type React from "react"
 
-type Event = {
-  name: string;
-  description: string;
-  date: string;
-  venue: string;
-  organizerId: string;
-  pricePerPass: string;
-  lastDayToBuy: string;
-  passesSold: string;
-};
+import { useState } from "react"
+import axios from "axios"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Textarea } from "@/components/ui/textarea"
 
-const EventForm = () => {
-  const [event, setEvent] = useState<Event>({
+export default function CreateEventForm() {
+  const [formData, setFormData] = useState({
+    organiserId: "",
     name: "",
     description: "",
     date: "",
-    venue: "",
-    organizerId: "",
-    pricePerPass: "",
-    lastDayToBuy: "",
-    passesSold: "",
-  });
+    location: "",
+    amount: "",
+    durationToBuyPasses: "",
+    numberOfPasses: "",
+  })
 
-  const [submitted, setSubmitted] = useState(false);
-  const [editing, setEditing] = useState(false);
+  const [error, setError] = useState("")
+  const [success, setSuccess] = useState(false)
 
-  // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setEvent({ ...event, [e.target.name]: e.target.value });
-  };
+    const { name, value } = e.target
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }))
+  }
 
-  // Handle form submission
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setEditing(false);
-  };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setError("")
+    setSuccess(false)
 
-  // Handle Edit
-  const handleEdit = () => {
-    setEditing(true);
-    setSubmitted(false);
-  };
+    try {
+      const response = await axios.post("http://localhost:5001/api/events/createEvent", formData)
+      if (response.data.success) {
+        setSuccess(true)
+        setFormData({
+          organiserId: "",
+          name: "",
+          description: "",
+          date: "",
+          location: "",
+          amount: "",
+          durationToBuyPasses: "",
+          numberOfPasses: "",
+        })
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        setError(error.response.data.message || "An error occurred while creating the event.")
+      } else {
+        setError("An unexpected error occurred.")
+      }
+    }
+  }
 
   return (
-    <div className="max-w-3xl mx-auto p-8 bg-gray-100 shadow-lg rounded-xl mt-10">
-      <h2 className="text-4xl font-bold text-center mb-6 text-indigo-600">
-        {editing ? "Edit Event" : "Create Event"}
-      </h2>
-
-      {!submitted || editing ? (
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 gap-6">
-            <input
+    <Card className="w-full max-w-md mx-auto">
+      <CardHeader>
+        <CardTitle>Create New Event</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="organiserId" className="block text-sm font-medium text-gray-700">
+              Organiser ID (Phone Number)
+            </label>
+            <Input
               type="text"
-              name="name"
-              placeholder="Event Name"
-              value={event.name}
+              id="organiserId"
+              name="organiserId"
+              value={formData.organiserId}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-              required
-            />
-            <textarea
-              name="description"
-              placeholder="Event Description"
-              value={event.description}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 h-24"
-              required
-            />
-            <label className="text-gray-700 font-semibold">Event Date</label>
-            <input
-              type="date"
-              name="date"
-              value={event.date}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-              required
-            />
-            <input
-              type="text"
-              name="venue"
-              placeholder="Venue"
-              value={event.venue}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-              required
-            />
-            <input
-              type="text"
-              name="organizerId"
-              placeholder="Organizer ID"
-              value={event.organizerId}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-              required
-            />
-            <input
-              type="number"
-              name="pricePerPass"
-              placeholder="Amount for One Pass (₹)"
-              value={event.pricePerPass}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-              required
-            />
-
-            {/* Label for Last Day to Register */}
-            <label className="text-gray-700 font-semibold">Last Day to Register</label>
-            <input
-              type="date"
-              name="lastDayToBuy"
-              value={event.lastDayToBuy}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-              required
-            />
-
-            <input
-              type="number"
-              name="passesSold"
-              placeholder="Number of Passes to sell"
-              value={event.passesSold}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
               required
             />
           </div>
-
-          <button
-            type="submit"
-            className="w-full bg-indigo-500 text-white p-3 rounded-lg font-bold hover:bg-indigo-600 transition duration-300"
-          >
-            {editing ? "Update Event" : "Submit Event"}
-          </button>
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              Event Name
+            </label>
+            <Input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+          </div>
+          <div>
+            <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+              Description
+            </label>
+            <Textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="date" className="block text-sm font-medium text-gray-700">
+              Date
+            </label>
+            <Input type="datetime-local" id="date" name="date" value={formData.date} onChange={handleChange} required />
+          </div>
+          <div>
+            <label htmlFor="location" className="block text-sm font-medium text-gray-700">
+              Location
+            </label>
+            <Input
+              type="text"
+              id="location"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="amount" className="block text-sm font-medium text-gray-700">
+              Amount
+            </label>
+            <Input type="number" id="amount" name="amount" value={formData.amount} onChange={handleChange} required />
+          </div>
+          <div>
+            <label htmlFor="durationToBuyPasses" className="block text-sm font-medium text-gray-700">
+              Duration to Buy Passes (in hours)
+            </label>
+            <Input
+              type="number"
+              id="durationToBuyPasses"
+              name="durationToBuyPasses"
+              value={formData.durationToBuyPasses}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="numberOfPasses" className="block text-sm font-medium text-gray-700">
+              Number of Passes
+            </label>
+            <Input
+              type="number"
+              id="numberOfPasses"
+              name="numberOfPasses"
+              value={formData.numberOfPasses}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <Button type="submit" className="w-full">
+            Create Event
+          </Button>
         </form>
-      ) : (
-        <div className="text-center p-6 bg-white border border-gray-300 shadow-md rounded-xl">
-          <h3 className="text-3xl font-bold text-green-600">Event Created Successfully 🎉</h3>
-          <p className="mt-2"><strong>Name:</strong> {event.name}</p>
-          <p><strong>Description:</strong> {event.description}</p>
-          <p><strong>Date:</strong> {event.date}</p>
-          <p><strong>Venue:</strong> {event.venue}</p>
-          <p><strong>Organizer ID:</strong> {event.organizerId}</p>
-          <p><strong>Amount for One Pass:</strong> ₹{event.pricePerPass}</p>
-          <p><strong>Last Day to Register:</strong> {event.lastDayToBuy}</p>
-          <p><strong>Passes Sold:</strong> {event.passesSold}</p>
+        {error && <p className="text-red-500 mt-4">{error}</p>}
+        {success && <p className="text-green-500 mt-4">Event created successfully!</p>}
+      </CardContent>
+    </Card>
+  )
+}
 
-          {/* Always Visible Edit Button */}
-          <button
-            onClick={handleEdit}
-            className="mt-6 bg-yellow-500 text-white p-3 rounded-lg font-bold hover:bg-yellow-600 transition duration-300"
-          >
-            Edit Event
-          </button>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default EventForm;

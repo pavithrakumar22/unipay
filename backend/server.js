@@ -12,6 +12,7 @@ import Transaction from "./models/Transaction.js";
 import Coins from "./models/Coins.js";
 import TransferCoins from "./models/TransferCoins.js";
 import Business from "./models/businessModel.js";
+import EventModel from "./models/EventModel.js";
 
 dotenv.config();
 const app = express();
@@ -202,6 +203,16 @@ app.post("/order/validate", async (req, res) => {
     } catch (error) {
       console.error("Error fetching businesses:", error);
       res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.get('/all-events', async (req, res) => {
+    try {
+      const events = await EventModel.find().sort({ date: 1 });
+      res.json(events);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+      res.status(500).json({ message: 'Error fetching events' });
     }
   });
 
