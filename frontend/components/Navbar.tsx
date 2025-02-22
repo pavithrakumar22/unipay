@@ -14,7 +14,7 @@ type UserType = {
 
 
 const menuItems = [
-    { name: "Home", path: "/LandingPage" },
+    { name: "Home", path: "/Dashboard/UserDashboard" },
     { name: "Convert", path: "/ConversionPage" },
     { name: "Stats", path: "/StatsPage" },
     { name: "Wallet", path: "/WalletPage" },
